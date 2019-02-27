@@ -1,17 +1,15 @@
 <template lang="pug">
   #app
     img(alt="Vue logo" src="./assets/logo.png")
-    HelloWorld(msg="Welcome to Your Vue.js + TypeScript App")
+    Todo
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import { Component, Vue } from 'vue-property-decorator'
+import Todo from '@/views/Todo.vue'
 
 @Component({
-  components: {
-    HelloWorld,
-  },
+  components: { Todo },
 })
 export default class App extends Vue {}
 </script>
