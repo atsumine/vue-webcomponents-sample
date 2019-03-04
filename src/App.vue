@@ -21,4 +21,6 @@ export default class App extends Vue {}
   text-align center
   color #2c3e50
   margin-top 60px
+  max-width 600px
+  margin 0 auto
 </style>

@@ -1,10 +1,11 @@
 <template lang="pug">
   .todo-form
-    input(type="text" autofocus v-model="formText" @keytap.enter="" placeholder="今日は何をしますか？")
+    input(type="text" autofocus v-model="formText" @keyup.enter="submitNewTodo()" placeholder="今日は何をしますか？")
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Todo } from '@/types/todo'
 
 /**
  * 新しいTODOを登録するためのフォーム
@@ -17,13 +18,29 @@ export default class TodoForm extends Vue {
   // -- [ Methods ] -----------------------------------------------------------
   /**
    * 新しいTodoオブジェクトを生成しemitする
+   * 値が空の場合にはemitしない
    */
-  private submitNewTodo() {
-
+  @Emit('submit') submitNewTodo(): Todo | void {
+    const value = this.formText && this.formText.trim()
+    if (value) return new Todo(this.formText, false)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+.todo-form
+  input
+    padding 16px 16px 16px 60px
+    border none 
+    background rgba(0, 0, 0, 0.003)
+    box-shadow inset 0 -2px 1px rgba(0,0,0,0.03)
+    position relative
+    margin 0
+    width 100%
+    font-size 24px
+    font-family inherit
+    font-weight inherit
+    line-height 1.4em
+    box-sizing border-box
+    -webkit-font-smoothing antialiased
 </style>
