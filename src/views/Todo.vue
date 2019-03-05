@@ -1,13 +1,15 @@
 <template lang="pug">
   .todo
-    TodoForm
-    TodoList
+    TodoForm(@submit="")
+    TodoList(:items="items")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
+
+import { Todo as TodoType } from '@/types/todo'
 
 /**
  * TODO本体
@@ -16,7 +18,28 @@ import TodoList from '@/components/TodoList.vue'
   components: { TodoForm, TodoList }
 })
 export default class Todo extends Vue {
+  // -- [ Properties ] --------------------------------------------------------
+  items: TodoType[] = []
 
+  // -- [ Methods ] -----------------------------------------------------------
+  /**
+   * 初期化処理
+   */
+  created(): void {
+    this.items = [
+      {
+        title: 'hoge',
+        done:   false,
+      }
+    ]
+  }
+
+  /**
+   * items配列に新しいTodoを追加する
+   */
+  private appendNewTodo(todo: TodoType): void {
+    this.items.push(todo)
+  }
 }
 </script>
 

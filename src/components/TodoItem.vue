@@ -1,5 +1,5 @@
 <template lang="pug">
-  
+  .todo-item
 </template>
 
 <script lang="ts">

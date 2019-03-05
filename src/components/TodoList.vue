@@ -1,16 +1,24 @@
 <template lang="pug">
-  
+  .todo-list
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import TodoItem from '@/components/TodoItem.vue'
+
+import { Todo } from '@/types/todo'
 
 /**
  * TodoItemの集約。タスクのリスト表示用コンポーネント
  */
-@Component
+@Component({
+  components: { TodoItem }
+})
 export default class TodoList extends Vue {
-  @Prop({ type: Array, default: [] }) items!: object[] // Todoリストの一覧
+  // -- [ properties ] --------------------------------------------------------
+  @Prop({ type: Array, default: [] }) items!: Todo[] // Todoリストの一覧
+
+  // -- [ Methods ] -----------------------------------------------------------
 }
 </script>
 
