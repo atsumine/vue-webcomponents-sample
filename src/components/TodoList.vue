@@ -1,5 +1,6 @@
 <template lang="pug">
   .todo-list
+    TodoItem(v-for="item in items", :item="item")
 </template>
 
 <script lang="ts">

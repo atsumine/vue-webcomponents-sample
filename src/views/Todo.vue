@@ -28,7 +28,7 @@ export default class Todo extends Vue {
   created(): void {
     this.items = [
       {
-        title: 'hoge',
+        title: 'todoのひとつめ',
         done:   false,
       }
     ]
