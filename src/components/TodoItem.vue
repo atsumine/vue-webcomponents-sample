@@ -1,7 +1,7 @@
 <template lang="pug">
   .todo-item
     input.toggle(type="checkbox", v-model="todo.done", @change="")
-    label.title {{ todo.title }}
+    label.title(:class="{ done: todo.done }") {{ todo.title }}
 
 </template>
 
@@ -48,4 +48,8 @@ export default class TodoItem extends Vue {
     line-height 1.2
     transition  color 0.4s
     color #4d4d4d
+
+    &.done
+      text-decoration  line-through
+      color #d9d9d9
 </style>
