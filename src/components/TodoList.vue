@@ -1,6 +1,6 @@
 <template lang="pug">
   .todo-list
-    TodoItem(v-for="item in items", :item="item")
+    TodoItem(v-for="todo in todos", :item="todo", :key="todo.id")
 </template>
 
 <script lang="ts">
@@ -17,12 +17,11 @@ import { Todo } from '@/types/todo'
 })
 export default class TodoList extends Vue {
   // -- [ properties ] --------------------------------------------------------
-  @Prop({ type: Array, default: [] }) items!: Todo[] // Todoリストの一覧
+  @Prop({ type: Array, default: [] }) todos!: Todo[] // Todoリストの一覧
 
   // -- [ Methods ] -----------------------------------------------------------
 }
 </script>
 
 <style lang="stylus" scoped>
-
 </style>

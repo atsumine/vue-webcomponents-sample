@@ -1,7 +1,7 @@
 <template lang="pug">
   .todo-item
-    input.toggle(type="checkbox", v-model="item.done", @change="")
-    label.title {{ item.title }}
+    input.toggle(type="checkbox", v-model="todo.done", @change="")
+    label.title {{ todo.title }}
 
 </template>
 
@@ -14,7 +14,13 @@ import { Todo } from '@/types/todo'
  */
 @Component
 export default class TodoItem extends Vue {
-  @Prop({ required: true }) item!: Todo
+  // -- [ Properties ] --------------------------------------------------------
+  @Prop({ required: true }) todo!: Todo
+
+  // -- [ Methods ] -----------------------------------------------------------
+  // @Emit('update') private toggleDone() {
+  //   return this.todo
+  // }
 }
 </script>
 
