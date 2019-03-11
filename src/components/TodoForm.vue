@@ -20,9 +20,12 @@ export default class TodoForm extends Vue {
    * 新しいTodoオブジェクトを生成しemitする
    * 値が空の場合にはemitしない
    */
-  @Emit('submit') submitNewTodo(): Todo | void {
-    const value = this.formText && this.formText.trim()
-    if (value) return new Todo(this.formText, false)
+  submitNewTodo(): Todo | void {
+    const value = this.formText.length && this.formText.trim()
+    if (value) {
+      this.formText = ''
+      this.$emit('submit', new Todo(value, false))
+    }
   }
 }
 </script>

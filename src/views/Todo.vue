@@ -1,13 +1,15 @@
 <template lang="pug">
   .todo
-    TodoForm(@submit="appnedNewTodo($event)")
+    TodoForm(@submit="appendNewTodo($event)")
     .todo-list
-      TodoItem(v-for="todo in todos", :item="todo", :key="todo.id")
+      TodoItem(v-for="todo in todos", :todo="todo", :key="todo.id")
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import TodoForm from '@/components/TodoForm.vue'
+import TodoItem from '@/components/TodoItem.vue'
+
 
 import { Todo as TodoType } from '@/types/todo'
 
@@ -15,7 +17,7 @@ import { Todo as TodoType } from '@/types/todo'
  * TODO本体
  */
 @Component({
-  components: { TodoForm }
+  components: { TodoForm, TodoItem }
 })
 export default class Todo extends Vue {
   // -- [ Properties ] --------------------------------------------------------
@@ -35,7 +37,7 @@ export default class Todo extends Vue {
   /**
    * items配列に新しいTodoを追加する
    */
-  private appendNewTodo(todo: TodoType): void {
+  appendNewTodo(todo: TodoType): void {
     this.todos.push(todo)
   }
 }
