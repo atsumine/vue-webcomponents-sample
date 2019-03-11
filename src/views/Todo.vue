@@ -2,7 +2,7 @@
   .todo
     TodoForm(@submit="appendNewTodo($event)")
     .todo-list
-      TodoItem(v-for="todo in todos", :todo="todo", :key="todo.id")
+      TodoItem(v-for="todo in todos", :todo="todo", :key="todo.id", @remove="removeTodo($event)")
 </template>
 
 <script lang="ts">
@@ -38,7 +38,14 @@ export default class Todo extends Vue {
    * items配列に新しいTodoを追加する
    */
   appendNewTodo(todo: TodoType): void {
-    this.todos.push(todo)
+    this.todos = this.todos.concat(todo)
+  }
+  /**
+   * idで指定したtodoを削除する
+   * NOTE: idが数値ではなく文字列である点に注意
+   */
+  removeTodo(id: string) : void {
+    this.todos = this.todos.filter(todo => todo.id !== id)
   }
 }
 </script>

@@ -1,12 +1,12 @@
 <template lang="pug">
-  .todo-item
+  .todo-item(@mouseover="hovered = true", @mouseleave="hovered = false")
     input.toggle(type="checkbox", v-model="todo.done", @change="")
     label.title(:class="{ done: todo.done }") {{ todo.title }}
-
+    button.destroy(:class="{ active: hovered }", @click="removeSelf") ×
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Todo } from '@/types/todo'
 
 /**
@@ -16,11 +16,12 @@ import { Todo } from '@/types/todo'
 export default class TodoItem extends Vue {
   // -- [ Properties ] --------------------------------------------------------
   @Prop({ required: true }) todo!: Todo
+  private hovered: boolean = false
 
   // -- [ Methods ] -----------------------------------------------------------
-  // @Emit('update') private toggleDone() {
-  //   return this.todo
-  // }
+  private removeSelf(): void {
+    this.$emit('remove', this.todo.id)
+  }
 }
 </script>
 
@@ -52,4 +53,20 @@ export default class TodoItem extends Vue {
     &.done
       text-decoration  line-through
       color #d9d9d9
+
+  button.destroy
+    position absolute
+    top 0
+    right 10px
+    bottom 0
+    width 40px
+    height 40px
+    margin auto 0
+    font-size 30px
+    margin-bottom 11px
+    transition color .1s ease-out
+    border none
+    color transparent
+    &.active
+      color #cc9a9a
 </style>
