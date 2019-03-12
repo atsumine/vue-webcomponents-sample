@@ -7,11 +7,12 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import TodoForm from '@/components/TodoForm.vue'
-import TodoItem from '@/components/TodoItem.vue'
-
 
 import { Todo as TodoType } from '@/types/todo'
+import { todoStorage } from '@/services/localStorage'
+
+import TodoForm from '@/components/TodoForm.vue'
+import TodoItem from '@/components/TodoItem.vue'
 
 /**
  * TODO本体
@@ -28,10 +29,14 @@ export default class Todo extends Vue {
    * 初期化処理
    */
   created(): void {
-    this.todos = [
-      new TodoType('todoのひとつめ', false),
-      new TodoType('todoの二つ目', false)
-    ]
+   this.todos = todoStorage.fetch()
+  }
+
+  /**
+   * todosの変更時に自動的にLocalStorageに保存する
+   */
+  @Watch('todos') autosaveTodosOnChange() {
+    todoStorage.save(this.todos)
   }
 
   /**
