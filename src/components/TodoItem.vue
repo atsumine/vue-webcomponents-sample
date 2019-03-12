@@ -1,12 +1,14 @@
 <template lang="pug">
   .todo-item(@mouseover="hovered = true", @mouseleave="hovered = false")
     input.toggle(type="checkbox", v-model="todo.done", @change="")
-    label.title(:class="{ done: todo.done }") {{ todo.title }}
+    label.title(v-if="!editorActive", :class="{ done: todo.done }", @dblclick="editorActive = true")
+      | {{ todo.title }}
+    input(v-if="editorActive", ref="editor", type="text", v-model="todo.title", @blur="editorActive = false")
     button.destroy(:class="{ active: hovered }", @click="removeSelf") ×
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { Todo } from '@/types/todo'
 
 /**
@@ -15,12 +17,27 @@ import { Todo } from '@/types/todo'
 @Component
 export default class TodoItem extends Vue {
   // -- [ Properties ] --------------------------------------------------------
+  $refs!: {
+    editor: HTMLFormElement
+  }
+
   @Prop({ required: true }) todo!: Todo
-  private hovered: boolean = false
+  private hovered: boolean = false // ホバーされているかどうか
+  private editorActive: boolean = false
 
   // -- [ Methods ] -----------------------------------------------------------
+  /**
+   * removeイベントを削除対象のtodoのidとともにemitする
+   */
   private removeSelf(): void {
     this.$emit('remove', this.todo.id)
+  }
+
+  /**
+   * 編集が有効になった際に、input要素に対してfocusをあてる
+   */
+  @Watch('editorActive') private setFocusToInput(value: boolean): void {
+    if (value) this.$nextTick().then(() => this.$refs.editor.focus())
   }
 }
 </script>
@@ -41,8 +58,11 @@ export default class TodoItem extends Vue {
     width      40px
     height     40px
     border none
-  label
+  label, input
+    width 100%
+    box-sizing  border-box
     text-align  left
+    font-size   24px
     word-break  break-all
     padding     15px 15px 15px 60px
     display     block
