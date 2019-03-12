@@ -44,49 +44,45 @@ export default class TodoItem extends Vue {
 
 <style lang="stylus" scoped>
 .todo-item
-  position      relative
+  display       flex
+  align-items   center
   font-size     24px
+  min-height    2.6em
   border-bottom 1px solid #ededed
 
   .toggle
-    position absolute
-    top    0
-    left   10px
-    bottom 0
-    margin auto 0
+    flex 0 0 auto
     text-align center
     width      40px
     height     40px
-    border none
+    margin 0 8px
+    border     none
   label, input
-    width 100%
+    flex 1 0 auto
     box-sizing  border-box
     text-align  left
-    font-size   24px
     word-break  break-all
-    padding     15px 15px 15px 60px
     display     block
-    line-height 1.2
+    line-height 1.2em
     transition  color 0.4s
-    color #4d4d4d
+    color       #4d4d4d
+    border      none
 
     &.done
-      text-decoration  line-through
-      color #d9d9d9
+      text-decoration line-through
+      color           #d9d9d9
 
   button.destroy
-    position absolute
-    top 0
-    right 10px
-    bottom 0
-    width 40px
-    height 40px
-    margin auto 0
-    font-size 30px
-    margin-bottom 11px
-    transition color .1s ease-out
-    border none
-    color transparent
+    flex 0 0 auto
+    width         40px
+    height        40px
+    font-size     30px
+    transition    color .1s ease-out
+    border        none
+    color         transparent
+    background-color transparent
+    appearance    none
+
     &.active
       color #cc9a9a
 </style>
