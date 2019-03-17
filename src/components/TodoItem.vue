@@ -22,7 +22,7 @@ export default class TodoItem extends Vue {
   }
 
   @Prop({ required: true }) todo!: Todo
-  private hovered: boolean = false // ホバーされているかどうか
+  private hovered:      boolean = false // ホバーされているかどうか
   private editorActive: boolean = false
 
   // -- [ Methods ] -----------------------------------------------------------
@@ -55,7 +55,7 @@ export default class TodoItem extends Vue {
     text-align center
     width      40px
     height     40px
-    margin 0 8px
+    margin     0 8px
     border     none
   label, input
     flex 1 0 auto
@@ -79,9 +79,9 @@ export default class TodoItem extends Vue {
     font-size     30px
     transition    color .1s ease-out
     border        none
-    color         transparent
-    background-color transparent
     appearance    none
+    color            transparent
+    background-color transparent
 
     &.active
       color #cc9a9a
